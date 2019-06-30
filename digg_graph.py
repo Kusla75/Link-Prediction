@@ -3,15 +3,14 @@
 
 import networkx as nx
 import time
-import metric_functions as mf
-import os
 
 graph = nx.Graph()
 dataset_path = ".\\Raw Datasets\\digg_dataset.csv"
-graph_path = ".\\Graphs\\digg_graph.gml"
+graph_path = ".\\Resources\\Digg\\digg_graph.gml"
 
 # Učitavanje nodova i veza iz dataseta i upisivanje u graf
 # na svaku upisanu vezu dodaje se timestamp vrednost
+t_start = time.time()
 with open(dataset_path, "r") as dataset:
     dataset.readline()
     for line in dataset:
@@ -22,5 +21,6 @@ with open(dataset_path, "r") as dataset:
 
 with open(graph_path, "w") as new_file:
     nx.write_gml(graph, graph_path)
-    print("Graph saved to " + graph_path)
+    print("Graph saved to " + graph_path + "\n")
 
+print("Time: ", time.time() - t_start)

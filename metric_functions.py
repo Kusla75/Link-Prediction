@@ -9,19 +9,19 @@ def intersection(list1, list2):
 
 
 def common_neighbors(graph, n1, n2):
-    ngh1 = list(graph.neighbors(n1)).sort()
-    ngh2 = list(graph.neighbors(n2)).sort()
+    ngh1 = list(graph.neighbors(n1))
+    ngh2 = list(graph.neighbors(n2))
 
     if n1 in ngh2:                      # Pošto veza postoji onda su nod 1 i nod 2 međusobno povezani i
         ngh1.remove(n2)                 # moraju se ukloniti iz međusobnih lista komšija, jer merimo vrednost
         ngh2.remove(n1)                 # za međusobne veze koje ne postoje a mogle bi (pravimo se kao da veza 
                                         # između noda 1 i noda 2 ne postoji)
-    return intersection(ngh1, ngh2)
-
+    return len(intersection(ngh1, ngh2))
 
 def jaccards_coefficient(graph, n1, n2):
-    ngh1 = list(graph.neighbors(n1)).sort()
-    ngh2 = list(graph.neighbors(n2)).sort()
+    score = 0
+    ngh1 = list(graph.neighbors(n1))
+    ngh2 = list(graph.neighbors(n2))
 
     if n1 in ngh2:   
         ngh1.remove(n2)                 
@@ -36,8 +36,8 @@ def jaccards_coefficient(graph, n1, n2):
 
 
 def preferential_attachment(graph, n1, n2):
-    ngh1 = list(graph.neighbors(n1)).sort()
-    ngh2 = list(graph.neighbors(n2)).sort()
+    ngh1 = list(graph.neighbors(n1))
+    ngh2 = list(graph.neighbors(n2))
 
     if n1 in ngh2:
         ngh1.remove(n2)
@@ -47,10 +47,11 @@ def preferential_attachment(graph, n1, n2):
 
 
 def adamic_adar(graph, n1, n2):
-    ngh1 = list(graph.neighbors(n1)).sort()
-    ngh2 = list(graph.neighbors(n2)).sort()
+    sum = 0
+    ngh1 = list(graph.neighbors(n1))
+    ngh2 = list(graph.neighbors(n2))
 
-    if n2 in ngh1:
+    if n1 in ngh2:
         ngh1.remove(n2)
         ngh2.remove(n1)
 
@@ -67,12 +68,10 @@ def adamic_adar(graph, n1, n2):
 
 def resource_allocation(graph, n1, n2):
     sum = 0
-    ngh1 = list(graph.neighbors(n1)).sort()
-    ngh2 = list(graph.neighbors(n2)).sort()
-    ngh1.sort()
-    ngh2.sort()
+    ngh1 = list(graph.neighbors(n1))
+    ngh2 = list(graph.neighbors(n2))
 
-    if n2 in ngh1:
+    if n1 in ngh2:
         ngh1.remove(n2)
         ngh2.remove(n1)
 
