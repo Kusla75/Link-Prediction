@@ -17,7 +17,7 @@ with open(dataset_path, "r") as dataset:
         num = line.split(",")
         graph.add_edge(int(num[2]), int(num[3]), timestamp = int(num[1]))
 
-    print("Graph loaded! \n")
+    print("CSV file loaded! \n")
 
 with open(graph_path, "w") as new_file:
     nx.write_gml(graph, graph_path)

@@ -32,7 +32,7 @@ def jaccards_coefficient(graph, n1, n2):
     except ZeroDivisionError:
         score = 0
 
-    return score 
+    return score
 
 
 def preferential_attachment(graph, n1, n2):
@@ -47,7 +47,7 @@ def preferential_attachment(graph, n1, n2):
 
 
 def adamic_adar(graph, n1, n2):
-    sum = 0
+    score = 0
     ngh1 = list(graph.neighbors(n1))
     ngh2 = list(graph.neighbors(n2))
 
@@ -59,15 +59,15 @@ def adamic_adar(graph, n1, n2):
 
     for node in inter_list:
         try:
-            sum += 1/log10(len(list(graph.neighbors(node))))
+            score += 1/log10(len(list(graph.neighbors(node))))
         except ZeroDivisionError:
             continue
-
-    return sum
+ 
+    return score
 
 
 def resource_allocation(graph, n1, n2):
-    sum = 0
+    score = 0
     ngh1 = list(graph.neighbors(n1))
     ngh2 = list(graph.neighbors(n2))
 
@@ -79,8 +79,8 @@ def resource_allocation(graph, n1, n2):
 
     for node in inter_list:
         try:
-            sum += 1/len(list(graph.neighbors(node)))
+            score += 1/len(list(graph.neighbors(node)))
         except ZeroDivisionError:
             continue
 
-    return sum
+    return score
