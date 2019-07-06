@@ -1,4 +1,7 @@
-Raw datasets/
+Raw_datasets/
 __pycache__/
 Temp/
 Resources/
+.vscode/
+main.py
+test.py

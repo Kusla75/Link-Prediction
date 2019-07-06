@@ -1,0 +1,26 @@
+# U ovom fajlu se nalaze sve funkcije koje pozivaju
+# machine learning algoritme
+
+import pandas as pd
+import numpy as np
+import sklearn as skl
+from sklearn.utils import shuffle
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+def LogisticReg(dataframe, label, ratio):
+    '''Funkcija koja poziva logisticku regresiju. Prvi argument je sam
+    dataset nad kojim se trenira, drugi naziv kolone koja oznacava klasu, 
+    a treci odnos testa i treninga
+    '''
+    y = np.array(dataframe[label])
+
+    x = np.array(dataframe.drop([label], 1))
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = ratio)
+    logmodel = LogisticRegression()
+    logmodel.fit(x_train, y_train)
+
+    score = logmodel.score(x_test, y_test)
+
+    return score

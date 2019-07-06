@@ -3,10 +3,13 @@
 
 import networkx as nx
 import time
+import os
+
+(dirname, prom) = os.path.split(os.path.dirname(__file__))
 
 graph = nx.Graph()
-dataset_path = ".\\Raw Datasets\\digg_dataset.csv"
-graph_path = ".\\Resources\\Digg\\digg_graph.gml"
+dataset_path = os.path.join(dirname, "Raw_datasets/digg_dataset.csv")
+graph_path = os.path.join(dirname, "Resources/Digg/digg_graph.gml")
 
 # Učitavanje nodova i veza iz dataseta i upisivanje u graf
 # na svaku upisanu vezu dodaje se timestamp vrednost
