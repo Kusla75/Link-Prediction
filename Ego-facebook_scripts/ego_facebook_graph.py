@@ -23,7 +23,7 @@ with open(feat_path, "r") as dataset:
     dic = {}
     for line in dataset:
         dic.clear()
-        features = line.split(" ")
+        features = line.strip("\n").split(" ")
         node = features[0]
         dic = {node : {}}
         del features[0]
