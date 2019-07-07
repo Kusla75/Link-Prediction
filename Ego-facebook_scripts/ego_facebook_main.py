@@ -1,3 +1,6 @@
+# U ovoj skripti se kreiraju .csv fajlovi
+# koji ce se koristiti za treniranje klasifikatora
+
 import networkx as nx
 import pandas as pd
 import os

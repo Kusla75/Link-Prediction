@@ -1,9 +1,20 @@
+# U ovom modulu se nalaze sve funkcije koje su potrebne za kreiranje
+# .csv fajlova koji ce se koristiti za treniranje klasifikatora
+
 import networkx as nx
 from random import randint
 import pandas as pd
 import os
 
 def recursive_func(graph, ls, step):
+	'''Rekurzivna funkcija koja na osnovu stepa iterira do nasumicnog noda
+		koji je relativno blizu zadatom nodu. Drugim recima ova funkc vraca 
+		nod koji je komsija komsije komsije... od zadatkog noda.
+
+		ls - lista komsija zadatkog noda
+		step - koliko koraka ce biti udaljeni zadati i nasumicni nod
+	'''
+
 	rand_index = randint(0, len(ls) - 1)
 	node = ls[rand_index]
 	if step != 1:
@@ -13,6 +24,12 @@ def recursive_func(graph, ls, step):
 		return node
 
 def get_rand_close_nodes(graph, step, n):
+	'''Koriscenjem rekurzivne funkcije vraca par nodova koji su relativno blizu.
+
+		step - definise koliko koraka su ta dva noda udaljena
+		n - koliko ce tih parova nodova biti
+	'''
+
 	node_pairs = []
 	while n != 0:
 		rand_index = randint(0, len(list(graph.nodes)) - 1)
@@ -27,6 +44,11 @@ def get_rand_close_nodes(graph, step, n):
 	return node_pairs
 
 def df_with_negative_class(graph, step, n):
+	'''Kreira dataframe koji ce da sadrzi feature negativne klase.
+
+		n - definise koliko ce biti redova u samom dataframe-u
+	'''
+
 	node_pairs = get_rand_close_nodes(graph, step, n)
 	features_list = list(list(graph.nodes.data())[0][1].keys())
 	df = pd.DataFrame(columns = features_list.insert(0, "CLASS"), index = None)
@@ -49,6 +71,11 @@ def df_with_negative_class(graph, step, n):
 	return df
 
 def df_with_positive_class(graph, n):
+	'''Kreira dataframe koji ce da sadrzi feature pozitivne klase.
+
+		n - definise koliko ce biti redova u samom dataframe-u
+	'''
+
 	features_list = list(list(graph.nodes.data())[0][1].keys())
 	df = pd.DataFrame(columns = features_list.insert(0, "CLASS"), index = None)
 	features_list.remove("CLASS")

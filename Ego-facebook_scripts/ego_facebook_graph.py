@@ -1,3 +1,6 @@
+# U ovoj skripti se ucitavaju podaci iz ego-facebook 
+# dataseta i upisuju u .gml fajl
+
 import networkx as nx
 import time
 import os
