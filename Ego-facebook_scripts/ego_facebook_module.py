@@ -11,13 +11,18 @@ def recursive_func(graph, ls, step):
 		return recursive_func(graph, list(graph.neighbors(node)), step)
 	else:
 		return node
-	
+
 def get_rand_close_nodes(graph, step, n):
 	node_pairs = []
-	for pom in range(n):
+	while n != 0:
 		rand_index = randint(0, len(list(graph.nodes)) - 1)
 		n1 = list(graph.nodes)[rand_index]
-		node_pairs.append([n1, recursive_func(graph, list(graph.neighbors(n1)), step)]) 
+		n2 = recursive_func(graph, list(graph.neighbors(n1)), step)
+		if not graph.has_edge(n1, n2):
+			node_pairs.append([n1, n2])
+			n -= 1
+		else:
+			continue
 		
 	return node_pairs
 
@@ -28,18 +33,19 @@ def df_with_negative_class(graph, step, n):
 	features_list.remove("CLASS")
 
 	for n1, n2 in node_pairs:
-		row = {"CLASS": 0}
-		for key in features_list:
-			if graph.nodes[n1][key] == graph.nodes[n2][key]:
-				row[key] = 1
-			else:
-				row[key] = 0
+		try:
+			row = {"CLASS": 0}
+			for key in features_list:
+				if graph.nodes[n1][key] == graph.nodes[n2][key]:
+					row[key] = 1
+				else:
+					row[key] = 0
 
-		df = df.append(row, ignore_index = True)
-	
-	for column in df.columns:
-		df[column] = df[column].astype(int)
-
+			df = df.append(row, ignore_index = True)
+		except KeyError:
+			print("Dogodio se KeyError!")
+			continue
+				
 	return df
 
 def df_with_positive_class(graph, n):
@@ -47,41 +53,29 @@ def df_with_positive_class(graph, n):
 	df = pd.DataFrame(columns = features_list.insert(0, "CLASS"), index = None)
 	features_list.remove("CLASS")
 	rand_edges = []
+	rand_indexes = []
 
-	for pom in range(n):
+	while n != 0:
 		rand = randint(0, len(list(graph.edges)) - 1)
-		rand_edges.append(graph.edges[rand])
+		if rand in rand_indexes:
+			continue
+		else:
+			rand_edges.append(list(graph.edges)[rand])
+			rand_indexes.append(rand)
+			n -= 1
 	
-	print(rand_edges)
-
 	for edges in rand_edges:
-		row = {"CLASS": 0}
-		for key in features_list:
-			if graph.nodes[edges[0]][key] == graph.nodes[edges[1]][key]:
-				row[key] = 1
-			else:
-				row[key] = 0
-		
-		df = df.append(row, ignore_index = True)
+		try:
+			row = {"CLASS": 1}
+			for key in features_list:
+				if graph.nodes[edges[0]][key] == graph.nodes[edges[1]][key]:
+					row[key] = 1
+				else:
+					row[key] = 0
+			
+			df = df.append(row, ignore_index = True)
+		except KeyError:
+			print("Dogodio se KeyError!")
+			continue
 	
-	for column in df.columns:
-		df[column] = df[column].astype(int)
-
 	return df
-
-graph = nx.Graph()
-
-(dirname, prom) = os.path.split(os.path.dirname(__file__))
-graph = nx.read_gml(os.path.join(dirname, "Resources\\ego-facebook\\ego-facebook_107.gml"))
-print("Graph loaded!")
-
-df_positive = df_with_negative_class(graph, 2, 500)
-print("Positive \n")
-df_negative = df_with_positive_class(graph, 500)
-
-df_positive.to_csv(os.path.join(dirname, "Resources\\ego-facebook\\positive_feat.csv"), index=False)
-df_negative.to_csv(os.path.join(dirname, "Resources\\ego-facebook\\negative_feat.csv"), index=False)
-print("CSV files created! \n")
-
-
-		

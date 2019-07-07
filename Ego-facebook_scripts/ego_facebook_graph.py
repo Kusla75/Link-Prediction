@@ -4,9 +4,14 @@ import os
 
 (dirname, prom) = os.path.split(os.path.dirname(__file__))
 
-edges_path = os.path.join(dirname, "Raw_datasets\\ego-facebook\\107.edges")
-feat_path = os.path.join(dirname, "Raw_datasets\\ego-facebook\\107.feat")
-graph_path = os.path.join(dirname, "Resources\\ego-facebook\\ego-facebook_107.gml")
+graph_num = input("Graph number: ")
+
+edges_path = os.path.join(dirname, 
+    "Raw_datasets\\ego-facebook\\{}.edges".format(graph_num))
+feat_path = os.path.join(dirname, 
+    "Raw_datasets\\ego-facebook\\{}.feat".format(graph_num))
+graph_path = os.path.join(dirname, 
+    "Resources\\ego-facebook\\ego-facebook_{}.gml".format(graph_num))
 
 graph = nx.Graph()
 

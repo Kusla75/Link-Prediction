@@ -1,0 +1,103 @@
+{
+    "results": [
+        {
+            "time": "2019-07-07 16:58",
+            "graph": 107,
+            "accuracy": 0.6392,
+            "test_size": 0.3,
+            "positive_size": 4999,
+            "negative_size": 4990,
+            "num_of_feat": 576,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani, korisceni su featuri nodova"
+        },
+        {
+            "time": "2019-07-07 17:1",
+            "graph": 107,
+            "accuracy": 0.6256,
+            "test_size": 0.3,
+            "positive_size": 3000,
+            "negative_size": 3000,
+            "num_of_feat": 576,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani, korisceni su featuri nodova"
+        },
+        {
+            "time": "2019-07-07 17:3",
+            "graph": 107,
+            "accuracy": 0.5973,
+            "test_size": 0.2,
+            "positive_size": 1500,
+            "negative_size": 1500,
+            "num_of_feat": 576,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani, korisceni su featuri nodova"
+        },
+        {
+            "time": "2019-07-07 17:4",
+            "graph": 107,
+            "accuracy": 0.6122,
+            "test_size": 0.3,
+            "positive_size": 1500,
+            "negative_size": 1500,
+            "num_of_feat": 576,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani, korisceni su featuri nodova"
+        },
+        {
+            "time": "2019-07-07 17:49",
+            "graph": 1912,
+            "accuracy": 0.7235,
+            "test_size": 0.3,
+            "positive_size": 10000,
+            "negative_size": 10000,
+            "num_of_feat": 480,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani, korisceni su featuri nodova"
+        },
+        {
+            "time": "2019-07-07 17:53",
+            "graph": 1912,
+            "accuracy": 0.7282,
+            "test_size": 0.2,
+            "positive_size": 10000,
+            "negative_size": 10000,
+            "num_of_feat": 480,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani, korisceni su featuri nodova"
+        },
+        {
+            "time": "2019-07-07 18:29",
+            "graph": 107,
+            "accuracy": 0.6603,
+            "test_size": 0.3,
+            "positive_size": 9999,
+            "negative_size": 9986,
+            "num_of_feat": 576,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani, korisceni su featuri nodova"
+        },
+        {
+            "time": "2019-07-07 18:37",
+            "graph": 107,
+            "accuracy": 0.59,
+            "test_size": 0.3,
+            "positive_size": 1000,
+            "negative_size": 1000,
+            "num_of_feat": 576,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani, korisceni su featuri nodova"
+        },
+        {
+            "time": "2019-07-07 18:38",
+            "graph": 107,
+            "accuracy": 0.5945,
+            "test_size": 0.4,
+            "positive_size": 1000,
+            "negative_size": 1000,
+            "num_of_feat": 576,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani, korisceni su featuri nodova"
+        }
+    ]
+}
