@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import sklearn as skl
 from sklearn.utils import shuffle
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.linear_model import LogisticRegression
 
 def LogisticReg(dataframe, label, ratio):
@@ -21,6 +21,7 @@ def LogisticReg(dataframe, label, ratio):
     logmodel = LogisticRegression()
     logmodel.fit(x_train, y_train)
 
-    score = logmodel.score(x_test, y_test)
-
-    return score
+    scores = cross_val_score(logmodel, x_test, y_test)
+    average_score = sum(scores) / len(scores)
+        
+    return average_score

@@ -3,5 +3,4 @@ __pycache__/
 Temp/
 Resources/
 .vscode/
-main.py
 test.py
