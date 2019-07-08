@@ -20,10 +20,18 @@ size = int(input("Size of datasets: "))
 step = int(input("Step: "))
 print()
 
-df_negative = df_with_negative_class(graph, step, size)
-print("Negative dataframe created! \n")
-df_positive = df_with_positive_class(graph, size)
-print("Positive dataframe created! \n")
+if "fbf" in resource_folder or "gf" in resource_folder:
+    df_negative = negative_class_node_feat(graph, step, size)
+    print("Negative dataframe created! \n")
+    df_positive = positive_class_node_feat(graph, size)
+    print("Positive dataframe created! \n")
+elif "ef" in resource_folder:
+    df_negative = negative_class_edge_feat(graph, step, size)
+    print("Negative dataframe created! \n")
+    df_positive = positive_class_edge_feat(graph, size)
+    print("Positive dataframe created! \n")
+else:
+    pass
 
 df_positive.to_csv(os.path.join(dirname, 
     "Resources\\{}\\positive_feat_{}.csv".format(resource_folder, graph_num)), index=False)

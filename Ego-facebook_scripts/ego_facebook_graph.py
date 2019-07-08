@@ -35,7 +35,7 @@ if feat_extractor == "fbf":
 elif feat_extractor == "gf":
     graph = group_features(graph, featnames_path, feat_path)
 elif feat_extractor == "ef":
-    pass 
+    graph = calculate_edge_features(graph)
 else:
     print("Niste uneli dobar feature extractor! ")
     exit()
