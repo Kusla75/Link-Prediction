@@ -5,14 +5,15 @@ from module import *
 
 (dirname, prom) = os.path.split(os.path.dirname(__file__))
 
+resource_folder = input("Resource folder: ")
 graph_num = input("Graph number: ")
 size = int(input("Sample size: "))
 
 df_positive = pd.read_csv(os.path.join(dirname, 
-    "Link Prediction\\Resources\\ego-facebook\\positive_feat_{}.csv".format(graph_num))).sample(size)
+    "Link Prediction\\Resources\\{}\\positive_feat_{}.csv".format(resource_folder, graph_num))).sample(size)
 
 df_negative = pd.read_csv(os.path.join(dirname, 
-    "Link Prediction\\Resources\\ego-facebook\\negative_feat_{}.csv".format(graph_num))).sample(size)
+    "Link Prediction\\Resources\\{}\\negative_feat_{}.csv".format(resource_folder, graph_num))).sample(size)
 
 finale_dataframe = pd.concat([df_positive, df_negative])
 print("Dataframes loaded! \n")

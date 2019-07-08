@@ -106,3 +106,78 @@ def df_with_positive_class(graph, n):
 			continue
 	
 	return df
+
+# -------------------------------------------------------
+
+def extract_feat_by_feat(graph, feat_path):
+	'''Izvlači feature po feature i tako ih upisuje
+	u graf (ne grupise ih)
+	'''
+	
+	with open(feat_path, "r") as dataset:
+		dic = {}
+		for line in dataset:
+			dic.clear()
+			features = line.strip("\n").split(" ")
+			node = features[0]
+			dic = {node : {}}
+			del features[0]
+			for i in range(len(features)):
+				dic[node]["F" + str(i)] = features[i]
+			nx.set_node_attributes(graph, dic)
+
+	return graph
+
+def group_features(graph, featnames_path, feat_path):
+	'''Grupise feature noda na osnovu .featnames fajla
+	'''
+
+	# Ovde se upisuju featuri u dictionary. Ime featurea je key,
+	# a value je max vrednost koju feature moze da ima,
+	# skala ide od 0 - max vrednost
+	name_holder = " "
+	max_val  = 0
+	features = {}
+	with open(featnames_path, "r") as featnames:
+		for line in featnames:
+			line = line.strip("\n").split(" ")
+			if name_holder != line[1]:
+				features[name_holder] = max_val
+				name_holder = line[1]
+				max_val  = 0
+			max_val += 1
+
+		del features[" "]
+
+	# Ovde se koricenjem prethodnog dict featuri grupisu i upisuju u
+	# kao atributi noda
+	dic = {}
+	with open(feat_path, "r") as feat:
+		for line in feat:
+			dic.clear()
+			line = line.strip("\n").split(" ")
+			node = line[0]
+			dic = {node: {}}
+			del line[0]
+
+			for feat_name, max_val in features.items():
+				for index, item in enumerate(line[:max_val]):
+					if item == "1":
+						dic[node][feat_name] = index
+						break
+					if index == max_val-1:
+						dic[node][feat_name] = "-1"
+				del line[:max_val]
+
+			# Ovde se menjaju nazivi kijeva, jer ako se ne promene
+			# ne mogu se upisati u .gml fajl
+			i = 0
+			keys = list(dic[node].keys())
+			for old_key in keys:
+				dic[node]["F" + str(i)] = dic[node][old_key]
+				del dic[node][old_key]
+				i += 1
+
+			nx.set_node_attributes(graph, dic)
+		
+		return graph

@@ -197,6 +197,50 @@
             "num_of_feat": 576,
             "ML_algorithm": "LogisticReg",
             "desc": "Featuri nisu grupisani, korisceni su featuri nodova. Koristi se CV"
+        },
+        {
+            "time": "2019-07-08 13:21",
+            "graph": 107,
+            "accuracy": 0.5737,
+            "test_size": 0.4,
+            "positive_size": 1000,
+            "negative_size": 1000,
+            "num_of_feat": 22,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Grupisani featuri. Koriscen je CV"
+        },
+        {
+            "time": "2019-07-08 13:22",
+            "graph": 107,
+            "accuracy": 0.5733,
+            "test_size": 0.4,
+            "positive_size": 4500,
+            "negative_size": 4500,
+            "num_of_feat": 22,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Grupisani featuri. Koriscen je CV"
+        },
+        {
+            "time": "2019-07-08 13:25",
+            "graph": 107,
+            "accuracy": 0.6231,
+            "test_size": 0.4,
+            "positive_size": 4500,
+            "negative_size": 4500,
+            "num_of_feat": 576,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri nisu grupisani. Koriscen je CV"
+        },
+        {
+            "time": "2019-07-08 13:37",
+            "graph": 107,
+            "accuracy": 0.5867,
+            "test_size": 0.3,
+            "positive_size": 3000,
+            "negative_size": 3000,
+            "num_of_feat": 22,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Grupisani featuri. Koriscen je CV"
         }
     ]
 }

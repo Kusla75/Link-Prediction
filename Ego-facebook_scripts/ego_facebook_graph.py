@@ -2,19 +2,21 @@
 # dataseta i upisuju u .gml fajl
 
 import networkx as nx
+from ego_facebook_module import *
 import time
 import os
 
 (dirname, prom) = os.path.split(os.path.dirname(__file__))
 
 graph_num = input("Graph number: ")
+feat_extractor = input("Feat extractor: ")
 
 edges_path = os.path.join(dirname, 
     "Raw_datasets\\ego-facebook\\{}.edges".format(graph_num))
-feat_path = os.path.join(dirname, 
-    "Raw_datasets\\ego-facebook\\{}.feat".format(graph_num))
+feat_path = edges_path.replace(".edges", ".feat")
+featnames_path = edges_path.replace(".edges", ".featnames")
 graph_path = os.path.join(dirname, 
-    "Resources\\ego-facebook\\ego-facebook_{}.gml".format(graph_num))
+    "Resources\\ego-facebook_{}\\ego-facebook_{}.gml".format(feat_extractor, graph_num))
 
 graph = nx.Graph()
 
@@ -26,19 +28,16 @@ with open(edges_path, "r") as dataset:
 
     print("Edges loaded! \n")
 
-# Ucitavanje featura za nodove
-with open(feat_path, "r") as dataset:
-    dic = {}
-    for line in dataset:
-        dic.clear()
-        features = line.strip("\n").split(" ")
-        node = features[0]
-        dic = {node : {}}
-        del features[0]
-        for i in range(len(features)):
-            dic[node]["F" + str(i)] = features[i]
-        nx.set_node_attributes(graph, dic)
-                
+# Korsinik na osnovu unosa naznacava nacin na koji zeli da 
+# se upisu featuri u graf pozivaju se feature extractori iz modula
+if feat_extractor == "fbf":
+    graph = extract_feat_by_feat(graph, feat_path)
+elif feat_extractor == "gf":
+    graph = group_features(graph, featnames_path, feat_path)
+else:
+    print("Niste uneli dobar feature extractor! ")
+    exit()
+
 # Upisivanje graf objekta u .gml fajl
 with open(graph_path, "w") as new_file:
     nx.write_gml(graph, graph_path)
