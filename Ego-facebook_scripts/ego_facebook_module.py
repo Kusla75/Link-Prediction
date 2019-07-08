@@ -4,7 +4,11 @@
 import networkx as nx
 from random import randint
 import pandas as pd
-import os
+import sys, os
+
+(dirname, prom) = os.path.split(os.path.dirname(__file__))
+sys.path.append(dirname)
+from metric_functions import *
 
 def recursive_func(graph, ls, step):
 	'''Rekurzivna funkcija koja na osnovu stepa iterira do nasumicnog noda
@@ -35,7 +39,10 @@ def get_rand_close_nodes(graph, step, n):
 		rand_index = randint(0, len(list(graph.nodes)) - 1)
 		n1 = list(graph.nodes)[rand_index]
 		n2 = recursive_func(graph, list(graph.neighbors(n1)), step)
-		if not graph.has_edge(n1, n2):
+		if n1 == n2:
+			continue
+
+		if not graph.has_edge(n1, n2) and not [n1, n2] in node_pairs:
 			node_pairs.append([n1, n2])
 			n -= 1
 		else:
@@ -181,3 +188,6 @@ def group_features(graph, featnames_path, feat_path):
 			nx.set_node_attributes(graph, dic)
 		
 		return graph
+
+def extract_edge_features(graph):
+	pass

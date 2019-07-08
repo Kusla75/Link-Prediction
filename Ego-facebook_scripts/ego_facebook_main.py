@@ -17,9 +17,10 @@ graph = nx.read_gml(os.path.join(dirname,
     "Resources\\{}\\ego-facebook_{}.gml".format(resource_folder, graph_num)))
 print("Graph loaded! \n")
 size = int(input("Size of datasets: "))
+step = int(input("Step: "))
 print()
 
-df_negative = df_with_negative_class(graph, 2, size)
+df_negative = df_with_negative_class(graph, step, size)
 print("Negative dataframe created! \n")
 df_positive = df_with_positive_class(graph, size)
 print("Positive dataframe created! \n")

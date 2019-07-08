@@ -34,6 +34,8 @@ if feat_extractor == "fbf":
     graph = extract_feat_by_feat(graph, feat_path)
 elif feat_extractor == "gf":
     graph = group_features(graph, featnames_path, feat_path)
+elif feat_extractor == "ef":
+    pass 
 else:
     print("Niste uneli dobar feature extractor! ")
     exit()

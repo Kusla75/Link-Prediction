@@ -241,6 +241,28 @@
             "num_of_feat": 22,
             "ML_algorithm": "LogisticReg",
             "desc": "Grupisani featuri. Koriscen je CV"
+        },
+        {
+            "time": "2019-07-08 15:57",
+            "graph": 107,
+            "accuracy": 0.5801,
+            "test_size": 0.4,
+            "positive_size": 1500,
+            "negative_size": 1500,
+            "num_of_feat": 22,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri su grupisani. Step za negativnu klasu je bio 3"
+        },
+        {
+            "time": "2019-07-08 15:58",
+            "graph": 107,
+            "accuracy": 0.5444,
+            "test_size": 0.3,
+            "positive_size": 1500,
+            "negative_size": 1500,
+            "num_of_feat": 22,
+            "ML_algorithm": "LogisticReg",
+            "desc": "Featuri su grupisani. Step za negativnu klasu je bio 3"
         }
     ]
 }
