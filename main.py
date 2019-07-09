@@ -18,8 +18,9 @@ df_negative = pd.read_csv(os.path.join(dirname,
 finale_dataframe = pd.concat([df_positive, df_negative])
 print("Dataframes loaded! \n")
 
-result = create_dic_result(int(graph_num), df_positive.shape[0], 
-    df_negative.shape[0], df_negative.shape[1] - 1, LogisticReg.__name__)
+type_of_feat = resource_folder.split("_")[1]
+result = create_dict_result(int(graph_num), df_positive.shape[0], 
+    df_negative.shape[0], df_negative.shape[1] - 1, type_of_feat, LogisticReg.__name__)
 
 score = LogisticReg(finale_dataframe, "CLASS", result["test_size"])
 
