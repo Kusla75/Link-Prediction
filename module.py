@@ -1,3 +1,6 @@
+# U ovom modulu se nalaze funkcije koje sluze za skladistenje
+# rezultata i varijabli koje su se koristili za dobijanje tih rezultata
+
 import datetime
 import json
 import os
@@ -5,7 +8,9 @@ import os
 (dirname, prom) = os.path.split(os.path.dirname(__file__))
 json_path = os.path.join(dirname, "Link Prediction\\Results\\results.json")
 
-def create_dict_result(graph_num, pos_size, neg_size, num_of_feat, type_of_feat, func_name):
+def create_dict_result(graph_num, pos_size, neg_size, feat_to_drop, 
+    num_of_feat, type_of_feat, func_name):
+
     result = {}
     now = datetime.datetime.now()
     result["time"] = "{} {}:{}".format(now.date(), now.hour, now.minute)
@@ -15,7 +20,9 @@ def create_dict_result(graph_num, pos_size, neg_size, num_of_feat, type_of_feat,
     result["test_size"] = float(input("Test size: "))
     result["positive_size"] = pos_size
     result["negative_size"] = neg_size
-    result["num_of_feat"] = num_of_feat
+
+    result["dropped_feat"] = feat_to_drop
+    result["num_of_feat"] = num_of_feat - len(feat_to_drop)
     result["type_of_feat"] = type_of_feat
     result["ML_algorithm"] = func_name
     result["desc"] = input("Desc: ")

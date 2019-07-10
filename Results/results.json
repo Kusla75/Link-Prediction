@@ -119,6 +119,276 @@
             "type_of_feat": "wef",
             "ML_algorithm": "LogisticReg",
             "desc": ""
+        },
+        {
+            "time": "2019-07-10 17:0",
+            "graph": 0,
+            "accuracy": 0.7431,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "CN",
+                "JC",
+                "PA",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Samo se koristi AA metrika"
+        },
+        {
+            "time": "2019-07-10 17:2",
+            "graph": 0,
+            "accuracy": 0.7083,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "JC",
+                "PA",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Samo se koristi CN metrika"
+        },
+        {
+            "time": "2019-07-10 17:3",
+            "graph": 0,
+            "accuracy": 0.7035,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "CN",
+                "PA",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Samo se koristi JC metrika"
+        },
+        {
+            "time": "2019-07-10 17:5",
+            "graph": 0,
+            "accuracy": 0.6445,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "CN",
+                "JC",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Samo se koristi PA metrika"
+        },
+        {
+            "time": "2019-07-10 17:6",
+            "graph": 0,
+            "accuracy": 0.7195,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "CN",
+                "JC",
+                "PA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Samo se koristi RA metrika"
+        },
+        {
+            "time": "2019-07-10 17:8",
+            "graph": 1912,
+            "accuracy": 0.7875,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "CN",
+                "JC",
+                "PA",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Samo se koristi AA metrika"
+        },
+        {
+            "time": "2019-07-10 17:10",
+            "graph": 1912,
+            "accuracy": 0.7639,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "JC",
+                "PA",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Koristi se CN metrika"
+        },
+        {
+            "time": "2019-07-10 17:12",
+            "graph": 1912,
+            "accuracy": 0.7966,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "CN",
+                "PA",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Koristi se JC metrika"
+        },
+        {
+            "time": "2019-07-10 17:12",
+            "graph": 1912,
+            "accuracy": 0.7069,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "CN",
+                "JC",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Koisti se PA metrika"
+        },
+        {
+            "time": "2019-07-10 17:13",
+            "graph": 1912,
+            "accuracy": 0.8056,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "CN",
+                "JC",
+                "PA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Koristi se RA metrika"
+        },
+        {
+            "time": "2019-07-10 17:16",
+            "graph": 107,
+            "accuracy": 0.7861,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "CN",
+                "JC",
+                "PA",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Koriscena je AA metrika"
+        },
+        {
+            "time": "2019-07-10 17:16",
+            "graph": 107,
+            "accuracy": 0.7688,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "JC",
+                "PA",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Koriscena je CN metrika"
+        },
+        {
+            "time": "2019-07-10 17:17",
+            "graph": 107,
+            "accuracy": 0.7778,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "CN",
+                "PA",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Koriscena je JC metrika"
+        },
+        {
+            "time": "2019-07-10 17:18",
+            "graph": 107,
+            "accuracy": 0.7174,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "CN",
+                "JC",
+                "RA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Koriscena je PA metrika"
+        },
+        {
+            "time": "2019-07-10 17:18",
+            "graph": 107,
+            "accuracy": 0.7708,
+            "test_size": 0.4,
+            "positive_size": 1800,
+            "negative_size": 1800,
+            "dropped_feat": [
+                "AA",
+                "CN",
+                "JC",
+                "PA"
+            ],
+            "num_of_feat": 1,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Koriscena je RA metrika"
         }
     ]
 }
