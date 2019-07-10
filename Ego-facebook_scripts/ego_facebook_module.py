@@ -122,7 +122,7 @@ def positive_class_node_feat(graph, n):
 	
 	return df
 
-def negative_class_edge_feat(graph, step, n):
+def negative_class_edge_feat(graph, step, n, add_weight = False):
 	'''Kreira dataframe koji ce da sadrzi feature negativne klase.
 	Featuri se kreiraju pomocu funkcija iz metric_functions modula
 
@@ -135,17 +135,21 @@ def negative_class_edge_feat(graph, step, n):
 	df = pd.DataFrame(columns = features_list.insert(0, "CLASS"), index = None)
 	features_list.remove("CLASS")
 
-	for n1, n2 in node_pairs:
+	for pair in node_pairs:
 		try:
-			row = {"CLASS": 0}
+			pair = tuple(pair)
+			row = {pair: {"CLASS": 0}}
 			
-			row["CN"] = common_neighbors(graph, n1, n2)
-			row["JC"] = round(jaccards_coefficient(graph, n1, n2), 4)
-			row["PA"] = preferential_attachment(graph, n1, n2)
-			row["AA"] = round(adamic_adar(graph, n1, n2), 4)
-			row["RA"] = round(resource_allocation(graph, n1, n2), 4)
+			row[pair]["CN"] = common_neighbors(graph, pair[0], pair[1])
+			row[pair]["JC"] = round(jaccards_coefficient(graph, pair[0], pair[1]), 4)
+			row[pair]["PA"] = preferential_attachment(graph, pair[0], pair[1])
+			row[pair]["AA"] = round(adamic_adar(graph, pair[0], pair[1]), 4)
+			row[pair]["RA"] = round(resource_allocation(graph, pair[0], pair[1]), 4)
+
+			if add_weight:
+				row = add_weight_to_edges(graph, pair, row)
 			
-			df = df.append(row, ignore_index = True)
+			df = df.append(row[pair], ignore_index = True)
 		except KeyError:
 			print("Dogodio se KeyError!")
 			continue
@@ -176,11 +180,11 @@ def positive_class_edge_feat(graph, n):
 			rand_indexes.append(rand)
 			n -= 1
 
-	for edges in rand_edges:
+	for edge in rand_edges:
 		try:
 			row = {"CLASS": 1}
 
-			row.update(graph.get_edge_data(edges[0], edges[1]))
+			row.update(graph.get_edge_data(edge[0], edge[1]))
 			
 			df = df.append(row, ignore_index = True)
 		except KeyError:
@@ -264,9 +268,11 @@ def group_features(graph, featnames_path, feat_path):
 		
 		return graph
 
-def calculate_edge_features(graph):
+def calculate_edge_features(graph, add_weight = False):
 	'''Racuna feature za svaki edge i upisuje ih u graf.
-		Koristi implementirane metrike iz metric_functions modula
+		Koristi implementirane metrike iz metric_functions modula.
+		Ako je add_weight True onda se pomocu featurea nodova 
+		racuna tezina veza i upisuje u dataframe 
 	'''
 
 	dic = {}
@@ -279,6 +285,29 @@ def calculate_edge_features(graph):
 		dic[edge]["AA"] = round(adamic_adar(graph, edge[0], edge[1]), 4)
 		dic[edge]["RA"] = round(resource_allocation(graph, edge[0], edge[1]), 4)
 
+		if add_weight:
+			dic = add_weight_to_edges(graph, edge, dic)
+
 		nx.set_edge_attributes(graph, dic)
 
 	return graph
+
+def add_weight_to_edges(graph, edge, dic):
+	'''Daje tezinu vezama izmedju nodova na osnovu featura nodova.
+	Poredi feature po feature od nodova i ukupan broj poklapanja upisuje
+	kao tezina veze
+	'''
+
+	num = 0
+	node_features_list = list(list(graph.nodes.data())[0][1].keys())
+	for key in node_features_list:
+		try:
+			if graph.nodes[edge[0]][key] == graph.nodes[edge[1]][key]:
+				num += 1
+		except KeyError:
+			print("Dogodio se KeyError! \n")
+			continue
+
+	dic[edge]["WGH"] = num
+
+	return dic

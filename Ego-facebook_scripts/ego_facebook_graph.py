@@ -30,8 +30,14 @@ with open(edges_path, "r") as dataset:
 
 # Korsinik na osnovu unosa naznacava nacin na koji zeli da 
 # se upisu featuri u graf pozivaju se feature extractori iz modula
-if feat_extractor == "fbf":
+# fbf - feature by feature
+# gf - grouped features
+# ef - edge features
+# wef - weighted edge features
+if feat_extractor == "fbf" or feat_extractor == "wef":
     graph = extract_feat_by_feat(graph, feat_path)
+    if feat_extractor == "wef":
+        graph = calculate_edge_features(graph, add_weight = True)
 elif feat_extractor == "gf":
     graph = group_features(graph, featnames_path, feat_path)
 elif feat_extractor == "ef":

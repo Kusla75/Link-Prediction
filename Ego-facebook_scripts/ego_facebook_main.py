@@ -25,8 +25,8 @@ if "fbf" in resource_folder or "gf" in resource_folder:
     print("Negative dataframe created! \n")
     df_positive = positive_class_node_feat(graph, size)
     print("Positive dataframe created! \n")
-elif "ef" in resource_folder:
-    df_negative = negative_class_edge_feat(graph, step, size)
+elif "ef" in resource_folder or "wef" in resource_folder:
+    df_negative = negative_class_edge_feat(graph, step, size, add_weight = True)
     print("Negative dataframe created! \n")
     df_positive = positive_class_edge_feat(graph, size)
     print("Positive dataframe created! \n")
