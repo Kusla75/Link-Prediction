@@ -35,7 +35,7 @@ with open(edges_path, "r") as dataset:
 # ef - edge features
 # wef - weighted edge features
 if feat_extractor == "fbf" or feat_extractor == "wef":
-    graph = extract_feat_by_feat(graph, feat_path)
+    graph = extract_feat_by_feat(graph, feat_path, featnames_path)
     if feat_extractor == "wef":
         graph = calculate_edge_features(graph, add_weight = True)
 elif feat_extractor == "gf":

@@ -195,10 +195,16 @@ def positive_class_edge_feat(graph, n):
 
 # -------------------------------------------------------
 
-def extract_feat_by_feat(graph, feat_path):
+def extract_feat_by_feat(graph, feat_path, featnames_path):
 	'''Izvlači feature po feature i tako ih upisuje
 	u graf (ne grupise ih)
 	'''
+
+	featnames =[]
+	with open(featnames_path, "r") as featnames_file:
+		for line in featnames_file:
+			line = line.strip("\n").split(" ", 3)
+			featnames.append("F" + line[3])
 	
 	with open(feat_path, "r") as dataset:
 		dic = {}
@@ -209,7 +215,7 @@ def extract_feat_by_feat(graph, feat_path):
 			dic = {node : {}}
 			del features[0]
 			for i in range(len(features)):
-				dic[node]["F" + str(i)] = features[i]
+				dic[node][featnames[i]] = features[i]
 			nx.set_node_attributes(graph, dic)
 
 	return graph
@@ -311,3 +317,53 @@ def add_weight_to_edges(graph, edge, dic):
 	dic[edge]["WGH"] = num
 
 	return dic
+
+# -------------------------------------------------------
+
+def write_all_featnames_in_file(ego_indexes, combined_featnames_path):
+	'''Spaja sve feat u jedan .featnames fajl. Ego_indexes su indeksi svih fajlova
+		kroz koje iterira. Koristi indekse featurea i tako ih upisuje u fajl.
+	'''
+
+	ls = []
+	for index in ego_indexes:
+		featnames_file = os.path.join(dirname, 
+			"Raw_datasets\\ego-facebook\\{}.featnames".format(index))
+		with open(featnames_file, "r") as featnames:
+			for line in featnames:
+				line = line.split(" ", 3)
+				feat = "F" + line[3]
+				if feat not in ls:
+					ls.append(feat)
+	
+	
+	with open(combined_featnames_path, "w") as combined_featnames:
+		for elem in ls:
+			combined_featnames.write(elem)
+
+def fill_other_features(graph, combined_featnames_path):
+	'''Prolazi sve kroz feat nodova i tamo gde nedostaje feat
+		upisuje ga i zadaje mu inicijalnu vrednost 0.
+	'''
+
+	featnames = []
+	with open(combined_featnames_path, "r") as featnames_file:
+		for line in featnames_file:
+			line = line.strip("\n")
+			featnames.append(line)
+
+	a = len(featnames)
+	dic = {}
+	for data in graph.nodes.data():
+		dic.clear()
+		node = data[0]
+		attributes = data[1]
+		dic = {node: attributes}
+
+		for i in range(len(featnames)):
+			if not featnames[i] in dic[node].keys():
+				dic[node][featnames[i]] = "0"
+
+		nx.set_node_attributes(graph, dic) 
+
+	return graph		
