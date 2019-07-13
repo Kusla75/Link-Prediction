@@ -8,11 +8,11 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.linear_model import LogisticRegression
 
-def LogisticReg(dataframe, label, ratio, feat_to_drop = []):
+def LogisticReg(dataframe, label, cv_split, feat_to_drop = []):
     '''Funkcija koja poziva logisticku regresiju. Prvi argument je sam
     dataset nad kojim se trenira, drugi naziv kolone koja oznacava klasu, 
-    a treci odnos testa i treninga. Parametar feat_to_drop je tuple featurea
-    koji oznacava koliko featurea treba ignorisati.
+    a treci odnos na koliko delova se deli dataset kada se radi CV. 
+    Parametar feat_to_drop je tuple featurea koji oznacava koliko featurea treba ignorisati.
     '''
 
     if len(feat_to_drop) != 0:
@@ -22,11 +22,8 @@ def LogisticReg(dataframe, label, ratio, feat_to_drop = []):
 
     x = np.array(dataframe.drop([label], 1))
 
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = ratio)
     logmodel = LogisticRegression()
-    logmodel.fit(x_train, y_train)
 
-    scores = cross_val_score(logmodel, x_test, y_test)
-    average_score = sum(scores) / len(scores)
-        
+    average_score = cross_val_score(logmodel, x, y, cv = cv_split).mean()
+    
     return average_score

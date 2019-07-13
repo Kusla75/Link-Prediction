@@ -17,7 +17,7 @@ def create_dict_result(graph_num, pos_size, neg_size, feat_to_drop,
     result["graph"] = graph_num
     result["accuracy"] = 0
 
-    result["test_size"] = float(input("Test size: "))
+    result["cv_split"] = int(input("CV split: "))
     result["positive_size"] = pos_size
     result["negative_size"] = neg_size
 

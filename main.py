@@ -26,7 +26,7 @@ type_of_feat = resource_folder.split("_")[1]
 result = create_dict_result(int(graph_num), df_positive.shape[0], df_negative.shape[0], 
     feat_to_drop, df_negative.shape[1] - 1, type_of_feat, LogisticReg.__name__)
 
-score = LogisticReg(finale_dataframe, "CLASS", result["test_size"], feat_to_drop)
+score = LogisticReg(finale_dataframe, "CLASS", result["cv_split"], feat_to_drop)
 
 result["accuracy"] = round(score, 4)
 document_result(result, json_path)
