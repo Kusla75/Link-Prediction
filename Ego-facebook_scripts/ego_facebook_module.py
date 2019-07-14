@@ -84,7 +84,7 @@ def negative_class_node_feat(graph, step, n):
 				
 	return df
 
-def positive_class_node_feat(graph, n):
+def positive_class_node_feat(graph, n, random = False):
 	'''Kreira dataframe koji ce da sadrzi feature pozitivne klase.
 		Bira se nasumicnih n veza
 
@@ -97,15 +97,18 @@ def positive_class_node_feat(graph, n):
 	rand_edges = []
 	rand_indexes = []
 
-	while n != 0:
-		rand = randint(0, len(list(graph.edges)) - 1)
-		if rand in rand_indexes:
-			continue
-		else:
-			rand_edges.append(list(graph.edges)[rand])
-			rand_indexes.append(rand)
-			n -= 1
-	
+	if random:
+		while n != 0:
+			rand = randint(0, len(list(graph.edges)) - 1)
+			if rand in rand_indexes:
+				continue
+			else:
+				rand_edges.append(list(graph.edges)[rand])
+				rand_indexes.append(rand)
+				n -= 1
+	else:
+		rand_edges = list(graph.edges)[:n]
+		
 	for edges in rand_edges:
 		try:
 			row = {"CLASS": 1}
@@ -156,7 +159,7 @@ def negative_class_edge_feat(graph, step, n, add_weight = False):
 
 	return df
 
-def positive_class_edge_feat(graph, n):
+def positive_class_edge_feat(graph, n, random = False):
 	'''Kreira dataframe koji ce da sadrzi feature pozitivne klase.
 	Featuri se kreiraju pomocu funkcija iz metric_functions modula.
 	Bira se nasumicnih n veza
@@ -171,14 +174,17 @@ def positive_class_edge_feat(graph, n):
 	rand_edges = []
 	rand_indexes = []
 
-	while n != 0:
-		rand = randint(0, len(list(graph.edges)) - 1)
-		if rand in rand_indexes:
-			continue
-		else:
-			rand_edges.append(list(graph.edges)[rand])
-			rand_indexes.append(rand)
-			n -= 1
+	if random:
+		while n != 0:
+			rand = randint(0, len(list(graph.edges)) - 1)
+			if rand in rand_indexes:
+				continue
+			else:
+				rand_edges.append(list(graph.edges)[rand])
+				rand_indexes.append(rand)
+				n -= 1
+	else:
+		rand_edges = list(graph.edges)[:n]
 
 	for edge in rand_edges:
 		try:

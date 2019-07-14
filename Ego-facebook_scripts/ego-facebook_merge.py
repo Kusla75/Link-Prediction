@@ -11,7 +11,7 @@ ego_indexes = [0, 107, 348, 414, 686, 698, 1684, 1912, 3437, 3980]
 graph = nx.Graph()
 
 graph_save_path = os.path.join(dirname, 
-    "Resources\\ego-facebook_merged\\{}\\ego-facebook_merged.gml")
+    "Resources\\ego-facebook_merged_{}\\ego-facebook_merged.gml")
 combined_edges_path = os.path.join(dirname,
     "Raw_datasets\\ego-facebook_merged\\merged_edges.txt")
 combined_featnames_path = os.path.join(dirname,

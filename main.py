@@ -23,7 +23,7 @@ if feat_to_drop == [""]:
     feat_to_drop.clear()
 
 type_of_feat = resource_folder.split("_")[1]
-result = create_dict_result(int(graph_num), df_positive.shape[0], df_negative.shape[0], 
+result = create_dict_result(graph_num, df_positive.shape[0], df_negative.shape[0], 
     feat_to_drop, df_negative.shape[1] - 1, type_of_feat, LogisticReg.__name__)
 
 score = LogisticReg(finale_dataframe, "CLASS", result["cv_split"], feat_to_drop)

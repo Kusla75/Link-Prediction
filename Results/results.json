@@ -1,5 +1,17 @@
 {
     "results": [
-
+        {
+            "time": "2019-07-14 10:44",
+            "graph": "merged",
+            "accuracy": 0.8057,
+            "cv_split": 5,
+            "positive_size": 88200,
+            "negative_size": 88200,
+            "dropped_feat": [],
+            "num_of_feat": 5,
+            "type_of_feat": "merged",
+            "ML_algorithm": "LogisticReg",
+            "desc": "Ovo je kombinacija svih 10 grafova"
+        }
     ]
 }
