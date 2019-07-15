@@ -64,25 +64,36 @@ def negative_class_node_feat(graph, step, n):
 	# single_node_feature_tuple = node_features_list[0] #tuple
 	# single_node_feature_list = single_node_feature_tuple[1].keys() # second element of the tuple is dict whichj represents the node features, we want feature list
 	
+	file_path = os.path.join(dirname, "Resources\\ego-facebook_merged_fbf\\negative_feat_merged.csv")
 	features_list = list(list(graph.nodes.data())[0][1].keys())
-	df = pd.DataFrame(columns = features_list.insert(0, "CLASS"), index = None)
-	features_list.remove("CLASS")
+	row = "CLASS,"
 
-	for n1, n2 in node_pairs:
-		try:
-			row = {"CLASS": 0}
-			for key in features_list:
-				if graph.nodes[n1][key] == graph.nodes[n2][key]:
-					row[key] = 1
-				else:
-					row[key] = 0
+	with open(file_path, "w") as f:
+		for item in features_list:
+			row += item + ","
+		
+		row = row[:-1]
+		row += "\n"
+		f.write(row)
 
-			df = df.append(row, ignore_index = True)
-		except KeyError:
-			print("Dogodio se KeyError!")
-			continue
-				
-	return df
+	with open(file_path, "a") as f:
+		for n1, n2 in node_pairs:
+			try:
+				row = "0,"
+				for key in features_list:
+					if graph.nodes[n1][key] == graph.nodes[n2][key]:
+						row += "1,"
+					else:
+						row += "0,"
+
+				row = row[:-1]
+				row += "\n"
+							
+				f.write(row)
+			except KeyError:
+				print("Dogodio se KeyError!")
+				continue
+
 
 def positive_class_node_feat(graph, n, random = False):
 	'''Kreira dataframe koji ce da sadrzi feature pozitivne klase.
@@ -91,11 +102,18 @@ def positive_class_node_feat(graph, n, random = False):
 		n - definise koliko ce biti redova u samom dataframe-u
 	'''
 
+	file_path = os.path.join(dirname, "Resources\\ego-facebook_merged_fbf\\positive_feat_merged.csv")
 	features_list = list(list(graph.nodes.data())[0][1].keys())
-	df = pd.DataFrame(columns = features_list.insert(0, "CLASS"), index = None)
-	features_list.remove("CLASS")
 	rand_edges = []
 	rand_indexes = []
+	row = "CLASS,"
+
+	with open(file_path, "w") as f:
+		for item in features_list:
+			row += item + ","
+		
+		row += "\n"
+		f.write(row)
 
 	if random:
 		while n != 0:
@@ -109,21 +127,24 @@ def positive_class_node_feat(graph, n, random = False):
 	else:
 		rand_edges = list(graph.edges)[:n]
 		
-	for edges in rand_edges:
-		try:
-			row = {"CLASS": 1}
-			for key in features_list:
-				if graph.nodes[edges[0]][key] == graph.nodes[edges[1]][key]:
-					row[key] = 1
-				else:
-					row[key] = 0
-			
-			df = df.append(row, ignore_index = True)
-		except KeyError:
-			print("Dogodio se KeyError!")
-			continue
+	with open(file_path, "a") as f:
+		for edges in rand_edges:
+			try:
+				row = "1,"
+				for key in features_list:
+					if graph.nodes[edges[0]][key] == graph.nodes[edges[1]][key]:
+						row += "1,"
+					else:
+						row += "0,"
+
+				row = row[:-1]
+				row += "\n"
+						
+				f.write(row)
+			except KeyError:
+				print("Dogodio se KeyError!")
+				continue
 	
-	return df
 
 def negative_class_edge_feat(graph, step, n, add_weight = False):
 	'''Kreira dataframe koji ce da sadrzi feature negativne klase.
