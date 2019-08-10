@@ -8,11 +8,12 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.linear_model import LogisticRegressionCV
 
-def LogisticReg(dataframe, label, cv_split, feat_to_drop = []):
+def LogisticReg(dataframe, label, cv_split, feat_to_drop = [], return_coef = False):
     '''Funkcija koja poziva logisticku regresiju. Prvi argument je sam
     dataset nad kojim se trenira, drugi naziv kolone koja oznacava klasu, 
     a treci odnos na koliko delova se deli dataset kada se radi CV. 
     Parametar feat_to_drop je tuple featurea koji oznacava koliko featurea treba ignorisati.
+    Parametar return_coef govori da li treba da se vrate koeficijenti feature-a.
     '''
 
     if len(feat_to_drop) != 0:
@@ -24,8 +25,12 @@ def LogisticReg(dataframe, label, cv_split, feat_to_drop = []):
 
     logmodel = LogisticRegressionCV(cv = 5, random_state = 1, n_jobs = -1).fit(x,y)
 
-#    average_score = cross_val_score(logmodel, x, y, cv = cv_split, n_jobs = -1).mean()
+    #average_score = cross_val_score(logmodel, x, y, cv = cv_split, n_jobs = -1).mean()
  
     average_score = logmodel.score(x,y)
-    print(logmodel.coef_)
-    return average_score
+    
+    if return_coef:
+        coef = logmodel.coef_[0]
+        return [average_score, list(coef)]
+    else:
+        return [average_score, []]
