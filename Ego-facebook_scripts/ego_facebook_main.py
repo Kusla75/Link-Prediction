@@ -21,12 +21,12 @@ step = int(input("Step: "))
 print()
 
 if "fbf" in resource_folder or "gf" in resource_folder:
-    negative_class_node_feat(graph, step, size)
+    negative_class_node_feat(graph, step, size, graph_num)
     print("Negative dataframe created! \n")
-    exit()
 
-    positive_class_node_feat(graph, size)
+    positive_class_node_feat(graph, size, graph_num)
     print("Positive dataframe created! \n")
+    exit()
 
 elif "ef" in resource_folder or "wef" in resource_folder:
     if "wef" in resource_folder:

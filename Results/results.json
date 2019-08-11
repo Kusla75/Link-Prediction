@@ -1,5 +1,104 @@
 {
     "results": [
-        
+        {
+            "time": "2019-08-11 15:34",
+            "graph": "0",
+            "accuracy": 0.7562,
+            "cv_split": 5,
+            "positive_size": 2500,
+            "negative_size": 2500,
+            "dropped_feat": [],
+            "num_of_feat": 5,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "",
+            "feat_coef": [
+                0.43466985226742355,
+                -0.02351058477757735,
+                -0.005967475285652011,
+                -0.000748126232875765,
+                0.08587443126363042
+            ]
+        },
+        {
+            "time": "2019-08-11 15:35",
+            "graph": "107",
+            "accuracy": 0.8392,
+            "cv_split": 5,
+            "positive_size": 2500,
+            "negative_size": 2500,
+            "dropped_feat": [],
+            "num_of_feat": 5,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "",
+            "feat_coef": [
+                0.042465786233241154,
+                0.08113425588401026,
+                -0.0053511941281509995,
+                -0.0001207444826249344,
+                0.00023716306588803166
+            ]
+        },
+        {
+            "time": "2019-08-11 15:37",
+            "graph": "1684",
+            "accuracy": 0.8074,
+            "cv_split": 5,
+            "positive_size": 2500,
+            "negative_size": 2500,
+            "dropped_feat": [],
+            "num_of_feat": 5,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "",
+            "feat_coef": [
+                0.5750582316850571,
+                -0.19553481530618563,
+                -0.03168760092837991,
+                -7.288426694031851e-06,
+                0.07104542164899158
+            ]
+        },
+        {
+            "time": "2019-08-11 15:38",
+            "graph": "1912",
+            "accuracy": 0.873,
+            "cv_split": 5,
+            "positive_size": 2500,
+            "negative_size": 2500,
+            "dropped_feat": [],
+            "num_of_feat": 5,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "",
+            "feat_coef": [
+                0.028288658826352852,
+                0.026131426563848693,
+                -0.001466909481225628,
+                2.1552244017177358e-05,
+                0.0018798373209567172
+            ]
+        },
+        {
+            "time": "2019-08-11 15:39",
+            "graph": "3437",
+            "accuracy": 0.7834,
+            "cv_split": 5,
+            "positive_size": 2500,
+            "negative_size": 2500,
+            "dropped_feat": [],
+            "num_of_feat": 5,
+            "type_of_feat": "ef",
+            "ML_algorithm": "LogisticReg",
+            "desc": "",
+            "feat_coef": [
+                0.15098629463640054,
+                0.12593415072428707,
+                -0.0013389609806546438,
+                -7.08132858755401e-05,
+                0.016571943543038023
+            ]
+        }
     ]
 }

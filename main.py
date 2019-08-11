@@ -16,6 +16,10 @@ df_negative = pd.read_csv(os.path.join(dirname,
     "Link Prediction\\Resources\\{}\\negative_feat_{}.csv".format(resource_folder, graph_num))).head(size)
 
 finale_dataframe = pd.concat([df_positive, df_negative])
+
+# Ne pitajte zasto ovaj deo koda postoji, bitno je da samo otklanja jednu masnu bagcinu
+#finale_dataframe = finale_dataframe.loc[:, ~finale_dataframe.columns.str.match('Unnamed')]
+
 print("Dataframes loaded! \n")
 
 feat_to_drop = input("Features to drop: ").split(" ")
