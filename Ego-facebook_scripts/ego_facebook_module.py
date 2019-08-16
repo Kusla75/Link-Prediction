@@ -64,7 +64,7 @@ def negative_class_node_feat(graph, step, n, graph_num):
 	# single_node_feature_tuple = node_features_list[0] #tuple
 	# single_node_feature_list = single_node_feature_tuple[1].keys() # second element of the tuple is dict whichj represents the node features, we want feature list
 	
-	file_path = os.path.join(dirname, "Resources\\ego-facebook_fbf\\negative_feat_{}.csv".format(graph_num))
+	file_path = os.path.join(dirname, "Resources\\ego-facebook_merged_fbf\\negative_feat_{}.csv".format(graph_num))
 	features_list = list(list(graph.nodes.data())[0][1].keys())
 	row = "CLASS,"
 
@@ -102,7 +102,7 @@ def positive_class_node_feat(graph, n, graph_num, random = False):
 		n - definise koliko ce biti redova u samom dataframe-u
 	'''
 
-	file_path = os.path.join(dirname, "Resources\\ego-facebook_fbf\\positive_feat_{}.csv".format(graph_num))
+	file_path = os.path.join(dirname, "Resources\\ego-facebook_merged_fbf\\positive_feat_{}.csv".format(graph_num))
 	features_list = list(list(graph.nodes.data())[0][1].keys())
 	rand_edges = []
 	rand_indexes = []
