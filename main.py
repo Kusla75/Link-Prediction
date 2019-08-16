@@ -23,10 +23,16 @@ if feat_to_drop == [""]:
     feat_to_drop.clear()
 
 type_of_feat = resource_folder.split("_")[1]
-result = create_dict_result(int(graph_num), df_positive.shape[0], df_negative.shape[0], 
-    feat_to_drop, df_negative.shape[1] - 1, type_of_feat, LogisticReg.__name__)
+clf_models = [LogisticReg, KNN, SVM]
 
-score = LogisticReg(finale_dataframe, "CLASS", result["cv_split"], feat_to_drop)
+for model in clf_models:
+    result = create_dict_result(int(graph_num), df_positive.shape[0], df_negative.shape[0], 
+        feat_to_drop, df_negative.shape[1] - 1, type_of_feat, model.__name__)
 
-result["accuracy"] = round(score, 4)
-document_result(result, json_path)
+    scores = model(finale_dataframe, "CLASS", result["cv_split"], feat_to_drop)
+
+    result["accuracy"] = round(scores[0], 4)
+    result["precision_macro"] = round(scores[1], 4)
+    result["recall_macro"] = round(scores[2], 4)
+    document_result(result, json_path)
+    print()

@@ -16,6 +16,8 @@ def create_dict_result(graph_num, pos_size, neg_size, feat_to_drop,
     result["time"] = "{} {}:{}".format(now.date(), now.hour, now.minute)
     result["graph"] = graph_num
     result["accuracy"] = 0
+    result["precision"] = 0
+    result["recall"] = 0
 
     result["cv_split"] = int(input("CV split: "))
     result["positive_size"] = pos_size
