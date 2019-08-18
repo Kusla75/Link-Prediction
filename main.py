@@ -25,7 +25,7 @@ if graph_num == "merged":
 else:
     type_of_feat = resource_folder.split("_")[1]
     
-clf_models = [LogisticReg, KNN]
+clf_models = [LogisticReg, KNN, RandomForest]
 
 for model in clf_models:
     result = create_dict_result(graph_num, df_positive.shape[0], df_negative.shape[0], 
