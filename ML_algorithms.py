@@ -5,7 +5,8 @@ import pandas as pd
 import numpy as np
 import sklearn as skl
 from sklearn.utils import shuffle
-from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.metrics import make_scorer, accuracy_score, precision_score, recall_score
+from sklearn.model_selection import cross_validate
 from sklearn.linear_model import LogisticRegression
 from sklearn import neighbors
 from sklearn.ensemble import RandomForestClassifier
@@ -26,13 +27,21 @@ def LogisticReg(dataframe, label, cv_split):
     model = LogisticRegression(solver = "lbfgs", max_iter = 2500, random_state = 42, n_jobs = -1) 
 
     results = cross_validate(model, x, y, cv = cv_split,  
-        scoring = ["precision", "recall", "accuracy"], n_jobs = -1)
+        scoring = {
+            "accuracy" : make_scorer(accuracy_score),
+            "pre_pos" : make_scorer(precision_score),
+            "pre_neg" : make_scorer(precision_score, pos_label = 0),
+            "rec_pos" : make_scorer(recall_score),
+            "rec_neg" : make_scorer(recall_score, pos_label = 0)
+        }, n_jobs = -1)
     
-    scores = [
-        results["test_accuracy"].mean(),
-        results["test_precision"].mean(),
-        results["test_recall"].mean()
-    ]
+    scores = {
+        "accuracy" : results["test_accuracy"].mean(),
+        "pre_pos" : results["test_pre_pos"].mean(),
+        "pre_neg" : results["test_pre_neg"].mean(),
+        "rec_pos" : results["test_rec_pos"].mean(),
+        "rec_neg" : results["test_rec_neg"].mean(),
+    }
 
     return scores
 
@@ -65,15 +74,24 @@ def KNN(dataframe, label, cv_split):
     print("Best k found!")
 
     model = neighbors.KNeighborsClassifier(n_neighbors = best_k, n_jobs = -1)
-    results = cross_validate(model, x, y, cv = cv_split,
-            scoring = ["precision", "recall", "accuracy"], n_jobs = -1)
+
+    results = cross_validate(model, x, y, cv = cv_split,  
+        scoring = {
+            "accuracy" : make_scorer(accuracy_score),
+            "pre_pos" : make_scorer(precision_score),
+            "pre_neg" : make_scorer(precision_score, pos_label = 0),
+            "rec_pos" : make_scorer(recall_score),
+            "rec_neg" : make_scorer(recall_score, pos_label = 0)
+        }, n_jobs = -1)
     
-    scores = [
-        results["test_accuracy"].mean(),
-        results["test_precision"].mean(),
-        results["test_recall"].mean()
-    ]
-    
+    scores = {
+        "accuracy" : results["test_accuracy"].mean(),
+        "pre_pos" : results["test_pre_pos"].mean(),
+        "pre_neg" : results["test_pre_neg"].mean(),
+        "rec_pos" : results["test_rec_pos"].mean(),
+        "rec_neg" : results["test_rec_neg"].mean(),
+    }
+
     return scores
 
 def RandomForest(dataframe, label, cv_split):
@@ -89,13 +107,21 @@ def RandomForest(dataframe, label, cv_split):
 
     model = RandomForestClassifier(n_estimators = 100, oob_score = True, random_state = 42, n_jobs = -1)
 
-    results = cross_validate(model, x, y, cv = cv_split, 
-        scoring = ["precision", "recall", "accuracy"], n_jobs = -1)
-
-    scores = [
-        results["test_accuracy"].mean(),
-        results["test_precision"].mean(),
-        results["test_recall"].mean()
-    ]
+    results = cross_validate(model, x, y, cv = cv_split,  
+        scoring = {
+            "accuracy" : make_scorer(accuracy_score),
+            "pre_pos" : make_scorer(precision_score),
+            "pre_neg" : make_scorer(precision_score, pos_label = 0),
+            "rec_pos" : make_scorer(recall_score),
+            "rec_neg" : make_scorer(recall_score, pos_label = 0)
+        }, n_jobs = -1)
     
+    scores = {
+        "accuracy" : results["test_accuracy"].mean(),
+        "pre_pos" : results["test_pre_pos"].mean(),
+        "pre_neg" : results["test_pre_neg"].mean(),
+        "rec_pos" : results["test_rec_pos"].mean(),
+        "rec_neg" : results["test_rec_neg"].mean(),
+    }
+
     return scores

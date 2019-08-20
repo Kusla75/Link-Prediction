@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from ML_algorithms import *
+from ML_algorithms import LogisticReg, KNN, RandomForest
 from module import *
 
 (dirname, prom) = os.path.split(os.path.dirname(__file__))
@@ -33,8 +33,11 @@ for model in clf_models:
 
     scores = model(finale_dataframe, "CLASS", result["cv_split"])
 
-    result["accuracy"] = round(scores[0], 4)
-    result["precision"] = round(scores[1], 4)
-    result["recall"] = round(scores[2], 4)
+    result["accuracy"] = round(scores["accuracy"], 4)
+    result["precision_pos"] = round(scores["pre_pos"], 4)
+    result["precision_neg"] = round(scores["pre_neg"], 4)
+    result["recall_pos"] = round(scores["rec_pos"], 4)
+    result["recall_neg"] = round(scores["rec_neg"], 4)
+
     document_result(result, json_path)
     print("{} training finished".format(model.__name__))

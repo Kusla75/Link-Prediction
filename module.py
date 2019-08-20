@@ -15,8 +15,10 @@ def create_dict_result(graph_num, pos_size, neg_size, num_of_feat, type_of_feat,
     result["time"] = "{} {}:{}".format(now.date(), now.hour, now.minute)
     result["graph"] = graph_num
     result["accuracy"] = 0
-    result["precision"] = 0
-    result["recall"] = 0
+    result["precision_pos"] = 0
+    result["precision_neg"] = 0
+    result["recall_pos"] = 0
+    result["recall_neg"] = 0
 
     result["cv_split"] = 5
     result["positive_size"] = pos_size
