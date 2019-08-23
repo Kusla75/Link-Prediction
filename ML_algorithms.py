@@ -6,11 +6,20 @@ import numpy as np
 import sklearn as skl
 from sklearn.utils import shuffle
 from sklearn.metrics import make_scorer, accuracy_score, precision_score, recall_score
-from sklearn.model_selection import cross_validate
+from sklearn.model_selection import cross_validate, train_test_split, RandomizedSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn import neighbors
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
+
+scorers = {
+    "accuracy" : make_scorer(accuracy_score),
+    "pre_pos" : make_scorer(precision_score),
+    "pre_neg" : make_scorer(precision_score, pos_label = 0),
+    "rec_pos" : make_scorer(recall_score),
+    "rec_neg" : make_scorer(recall_score, pos_label = 0)
+}
+
 
 def LogisticReg(dataframe, label, cv_split):
     '''Funkcija koja poziva logisticku regresiju. Prvi argument je sam
@@ -26,16 +35,9 @@ def LogisticReg(dataframe, label, cv_split):
 
     model = LogisticRegression(solver = "lbfgs", max_iter = 2500, random_state = 42, n_jobs = -1) 
 
-    results = cross_validate(model, x, y, cv = cv_split,  
-        scoring = {
-            "accuracy" : make_scorer(accuracy_score),
-            "pre_pos" : make_scorer(precision_score),
-            "pre_neg" : make_scorer(precision_score, pos_label = 0),
-            "rec_pos" : make_scorer(recall_score),
-            "rec_neg" : make_scorer(recall_score, pos_label = 0)
-        }, n_jobs = -1)
+    results = cross_validate(model, x, y, cv = cv_split, scoring = scorers, n_jobs = -1)
     
-    scores = {
+    metric_values = {
         "accuracy" : results["test_accuracy"].mean(),
         "pre_pos" : results["test_pre_pos"].mean(),
         "pre_neg" : results["test_pre_neg"].mean(),
@@ -43,7 +45,7 @@ def LogisticReg(dataframe, label, cv_split):
         "rec_neg" : results["test_rec_neg"].mean(),
     }
 
-    return scores
+    return metric_values
 
 def KNN(dataframe, label, cv_split):
     '''Funkcija koja poziva k nearest neigbours.
@@ -62,8 +64,7 @@ def KNN(dataframe, label, cv_split):
     for k in range(3, 12):
         model = neighbors.KNeighborsClassifier(n_neighbors = k, n_jobs = -1)
 
-        results = cross_validate(model, x, y, cv = cv_split,
-            scoring = ["accuracy"], n_jobs = -1)
+        results = cross_validate(model, x, y, cv = cv_split, scoring = ["accuracy"], n_jobs = -1)
 
         accuracy = results["test_accuracy"].mean()
 
@@ -75,16 +76,9 @@ def KNN(dataframe, label, cv_split):
 
     model = neighbors.KNeighborsClassifier(n_neighbors = best_k, n_jobs = -1)
 
-    results = cross_validate(model, x, y, cv = cv_split,  
-        scoring = {
-            "accuracy" : make_scorer(accuracy_score),
-            "pre_pos" : make_scorer(precision_score),
-            "pre_neg" : make_scorer(precision_score, pos_label = 0),
-            "rec_pos" : make_scorer(recall_score),
-            "rec_neg" : make_scorer(recall_score, pos_label = 0)
-        }, n_jobs = -1)
+    results = cross_validate(model, x, y, cv = cv_split, scoring = scorers, n_jobs = -1)
     
-    scores = {
+    metric_values = {
         "accuracy" : results["test_accuracy"].mean(),
         "pre_pos" : results["test_pre_pos"].mean(),
         "pre_neg" : results["test_pre_neg"].mean(),
@@ -92,7 +86,7 @@ def KNN(dataframe, label, cv_split):
         "rec_neg" : results["test_rec_neg"].mean(),
     }
 
-    return scores
+    return metric_values
 
 def RandomForest(dataframe, label, cv_split):
     '''Funkcija koja poziva random forest algoritam
@@ -105,18 +99,37 @@ def RandomForest(dataframe, label, cv_split):
 
     x = np.array(dataframe.drop([label], 1))
 
-    model = RandomForestClassifier(n_estimators = 100, oob_score = True, random_state = 42, n_jobs = -1)
+    x_train, x_test, y_train, y_test  = train_test_split(x, y, random_state = 42, test_size = 0.2)
 
-    results = cross_validate(model, x, y, cv = cv_split,  
-        scoring = {
-            "accuracy" : make_scorer(accuracy_score),
-            "pre_pos" : make_scorer(precision_score),
-            "pre_neg" : make_scorer(precision_score, pos_label = 0),
-            "rec_pos" : make_scorer(recall_score),
-            "rec_neg" : make_scorer(recall_score, pos_label = 0)
-        }, n_jobs = -1)
+    random_params = {
+        'n_estimators': [100, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000],
+        'max_features': ['auto', 'sqrt'],
+        'max_depth': [10, 20, 40, 60, 80, 100],
+        'min_samples_split': [2, 4, 6, 8, 10],
+        'min_samples_leaf': [1, 2, 4, 6, 8],
+        'bootstrap': [True, False]
+    }
+    random_params["max_depth"].append(None)
+
+    random_model = RandomForestClassifier(random_state = 42, n_jobs = -1)
+
+    rf_random_models = RandomizedSearchCV(estimator = random_model, param_distributions = random_params, 
+        scoring = scorers, n_iter = 100, cv = 5, verbose = 1, refit = make_scorer(accuracy_score), 
+        random_state = 42, n_jobs = -1)
+
+    rf_random_models.fit(x_train, y_train)
+    print(rf_random_models.cv_results_)
+
+    best_params = rf_random_models.best_params_
+
+    base_model = RandomForestClassifier(n_estimators = best_params['n_estimators'], 
+        max_features = best_params['max_features'], max_depth = best_params['max_depth'], 
+        min_samples_split = best_params['min_samples_split'], min_samples_leaf = best_params['min_samples_leaf'],
+        bootstrap = best_params['bootstrap'], random_state = 42, n_jobs = -1)
+
+    results = cross_validate(base_model, x, y, cv = cv_split, scoring = scorers, n_jobs = -1)
     
-    scores = {
+    metric_values = {
         "accuracy" : results["test_accuracy"].mean(),
         "pre_pos" : results["test_pre_pos"].mean(),
         "pre_neg" : results["test_pre_neg"].mean(),
@@ -124,4 +137,5 @@ def RandomForest(dataframe, label, cv_split):
         "rec_neg" : results["test_rec_neg"].mean(),
     }
 
-    return scores
+    return metric_values
+
