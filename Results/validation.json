@@ -1,0 +1,32 @@
+{
+    "validation": [
+        {
+            "graph": "0",
+            "type_of_feat": "ef",
+            "accuracy": 0.775362,
+            "precision_pos": 0.7982276000435379,
+            "recall_pos": 0.7384799999999998
+        },
+        {
+            "graph": "0",
+            "type_of_feat": "fbf",
+            "accuracy": 0.614728,
+            "precision_pos": 0.6209452433804723,
+            "recall_pos": 0.590724
+        },
+        {
+            "graph": "merged",
+            "type_of_feat": "fbf",
+            "accuracy": 0.8664380000000002,
+            "precision_pos": 0.9137538367993381,
+            "recall_pos": 0.810024
+        },
+        {
+            "graph": "merged",
+            "type_of_feat": "ef",
+            "accuracy": 0.8532460000000001,
+            "precision_pos": 0.8637963009815746,
+            "recall_pos": 0.83898
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+{
+    "settings": [
+        {
+            "graph": "0",
+            "type_of_feat": "ef",
+            "n_estimators": 200,
+            "min_samples_split": 2,
+            "min_samples_leaf": 1,
+            "max_features": "sqrt",
+            "max_depth": 80,
+            "bootstrap": true,
+            "ml_algorithm": "RandomForest"
+        },
+        {
+            "graph": "0",
+            "type_of_feat": "fbf",
+            "n_estimators": 1600,
+            "min_samples_split": 8,
+            "min_samples_leaf": 1,
+            "max_features": "auto",
+            "max_depth": null,
+            "bootstrap": false,
+            "ml_algorithm": "RandomForest"
+        },
+        {
+            "graph": "merged",
+            "type_of_feat": "fbf",
+            "n_estimators": 1600,
+            "min_samples_split": 8,
+            "min_samples_leaf": 1,
+            "max_features": "auto",
+            "max_depth": null,
+            "bootstrap": false,
+            "ml_algorithm": "RandomForest"
+        },
+        {
+            "graph": "merged",
+            "type_of_feat": "ef",
+            "n_estimators": 800,
+            "min_samples_split": 10,
+            "min_samples_leaf": 2,
+            "max_features": "auto",
+            "max_depth": 100,
+            "bootstrap": false,
+            "ml_algorithm": "RandomForest"
+        }
+    ]
+}

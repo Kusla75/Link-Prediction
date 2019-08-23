@@ -35,9 +35,7 @@ for model in clf_models:
 
     result["accuracy"] = round(scores["accuracy"], 4)
     result["precision_pos"] = round(scores["pre_pos"], 4)
-    result["precision_neg"] = round(scores["pre_neg"], 4)
     result["recall_pos"] = round(scores["rec_pos"], 4)
-    result["recall_neg"] = round(scores["rec_neg"], 4)
 
     document_result(result, json_path)
     print("{} training finished".format(model.__name__))

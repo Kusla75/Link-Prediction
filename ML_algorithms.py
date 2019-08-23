@@ -11,13 +11,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn import neighbors
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
+from module import settings_path, validation_path, document_result, calculate_validation_values
 
 scorers = {
     "accuracy" : make_scorer(accuracy_score),
     "pre_pos" : make_scorer(precision_score),
-    "pre_neg" : make_scorer(precision_score, pos_label = 0),
     "rec_pos" : make_scorer(recall_score),
-    "rec_neg" : make_scorer(recall_score, pos_label = 0)
 }
 
 
@@ -40,9 +39,7 @@ def LogisticReg(dataframe, label, cv_split):
     metric_values = {
         "accuracy" : results["test_accuracy"].mean(),
         "pre_pos" : results["test_pre_pos"].mean(),
-        "pre_neg" : results["test_pre_neg"].mean(),
         "rec_pos" : results["test_rec_pos"].mean(),
-        "rec_neg" : results["test_rec_neg"].mean(),
     }
 
     return metric_values
@@ -81,9 +78,7 @@ def KNN(dataframe, label, cv_split):
     metric_values = {
         "accuracy" : results["test_accuracy"].mean(),
         "pre_pos" : results["test_pre_pos"].mean(),
-        "pre_neg" : results["test_pre_neg"].mean(),
         "rec_pos" : results["test_rec_pos"].mean(),
-        "rec_neg" : results["test_rec_neg"].mean(),
     }
 
     return metric_values
@@ -99,8 +94,6 @@ def RandomForest(dataframe, label, cv_split):
 
     x = np.array(dataframe.drop([label], 1))
 
-    x_train, x_test, y_train, y_test  = train_test_split(x, y, random_state = 42, test_size = 0.2)
-
     random_params = {
         'n_estimators': [100, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000],
         'max_features': ['auto', 'sqrt'],
@@ -114,13 +107,17 @@ def RandomForest(dataframe, label, cv_split):
     random_model = RandomForestClassifier(random_state = 42, n_jobs = -1)
 
     rf_random_models = RandomizedSearchCV(estimator = random_model, param_distributions = random_params, 
-        scoring = scorers, n_iter = 100, cv = 5, verbose = 1, refit = make_scorer(accuracy_score), 
+        scoring = scorers, n_iter = 100, cv = 5, verbose = 1, refit = 'accuracy', 
         random_state = 42, n_jobs = -1)
 
-    rf_random_models.fit(x_train, y_train)
-    print(rf_random_models.cv_results_)
+    rf_random_models.fit(x, y)
+    cv_results = rf_random_models.cv_results_
+    dict_values = calculate_validation_values(cv_results, cv_split)
+    document_result(dict_values, validation_path)
 
     best_params = rf_random_models.best_params_
+    best_params['ml_algorithm'] = RandomForest.__name__
+    document_result(best_params, settings_path)
 
     base_model = RandomForestClassifier(n_estimators = best_params['n_estimators'], 
         max_features = best_params['max_features'], max_depth = best_params['max_depth'], 
@@ -132,9 +129,7 @@ def RandomForest(dataframe, label, cv_split):
     metric_values = {
         "accuracy" : results["test_accuracy"].mean(),
         "pre_pos" : results["test_pre_pos"].mean(),
-        "pre_neg" : results["test_pre_neg"].mean(),
         "rec_pos" : results["test_rec_pos"].mean(),
-        "rec_neg" : results["test_rec_neg"].mean(),
     }
 
     return metric_values

@@ -1,5 +1,64 @@
 {
     "results": [
-
+        {
+            "time": "2019-08-23 16:19",
+            "graph": "0",
+            "accuracy": 0.7832,
+            "precision_pos": 0.8031,
+            "precision_neg": 0,
+            "recall_pos": 0.7524,
+            "recall_neg": 0,
+            "cv_split": 5,
+            "positive_size": 2500,
+            "negative_size": 2500,
+            "num_of_feat": 5,
+            "type_of_feat": "ef",
+            "ML_algorithm": "RandomForest"
+        },
+        {
+            "time": "2019-08-23 16:43",
+            "graph": "0",
+            "accuracy": 0.6292,
+            "precision_pos": 0.6287,
+            "precision_neg": 0,
+            "recall_pos": 0.632,
+            "recall_neg": 0,
+            "cv_split": 5,
+            "positive_size": 2500,
+            "negative_size": 2500,
+            "num_of_feat": 224,
+            "type_of_feat": "fbf",
+            "ML_algorithm": "RandomForest"
+        },
+        {
+            "time": "2019-08-23 17:8",
+            "graph": "merged",
+            "accuracy": 0.9108,
+            "precision_pos": 0.8841,
+            "precision_neg": 0,
+            "recall_pos": 0.9456,
+            "recall_neg": 0,
+            "cv_split": 5,
+            "positive_size": 2500,
+            "negative_size": 2500,
+            "num_of_feat": 1283,
+            "type_of_feat": "fbf",
+            "ML_algorithm": "RandomForest"
+        },
+        {
+            "time": "2019-08-23 18:42",
+            "graph": "merged",
+            "accuracy": 0.8566,
+            "precision_pos": 0.8651,
+            "precision_neg": 0,
+            "recall_pos": 0.8452,
+            "recall_neg": 0,
+            "cv_split": 5,
+            "positive_size": 2500,
+            "negative_size": 2500,
+            "num_of_feat": 5,
+            "type_of_feat": "ef",
+            "ML_algorithm": "RandomForest"
+        }
     ]
 }
