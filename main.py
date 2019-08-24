@@ -31,7 +31,10 @@ for model in clf_models:
     result = create_dict_result(graph_num, df_positive.shape[0], df_negative.shape[0], 
         df_negative.shape[1] - 1, type_of_feat, model.__name__)
 
-    scores = model(finale_dataframe, "CLASS", result["cv_split"])
+    if model == RandomForest:
+        scores = model(finale_dataframe, "CLASS", result["cv_split"], False, True)
+    else:
+        scores = model(finale_dataframe, "CLASS", result["cv_split"])
 
     result["accuracy"] = round(scores["accuracy"], 4)
     result["precision_pos"] = round(scores["pre_pos"], 4)

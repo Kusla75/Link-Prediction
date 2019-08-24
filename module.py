@@ -1,6 +1,9 @@
 # U ovom modulu se nalaze funkcije koje sluze za skladistenje
 # rezultata i varijabli koje su se koristili za dobijanje tih rezultata
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 import datetime
 import json
 import os
@@ -59,3 +62,25 @@ def calculate_validation_values(cv_results, cv_split):
     }
 
     return dict_values
+
+def plot_important_features(results, column_names):
+    index_tuple = np.where(results["test_accuracy"] == np.amax(results["test_accuracy"]))
+    best_est_index = int(index_tuple[0])
+
+    best_estimator = results['estimator'][best_est_index]
+
+    feature_importances = best_estimator.feature_importances_
+
+    if len(feature_importances) < 50:
+        print(feature_importances)
+        series = pd.Series(feature_importances, index = column_names)
+        series.plot(kind = 'barh')
+        plt.show()
+    else:
+        column_names = list(column_names)
+        feat_imp_dict = {}
+        for i in range(len(column_names)):
+            feat_imp_dict[column_names[i]] = feat_imp_dict[i]
+
+        print()
+        
