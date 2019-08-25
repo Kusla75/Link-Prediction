@@ -133,12 +133,13 @@ def RandomForest(dataframe, label, cv_split, *argv):
             max_depth = None,
             bootstrap = False, random_state = 42, n_jobs = -1)
 
-    results = cross_validate(base_model, x, y, cv = cv_split, scoring = scorers, n_jobs = -1)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state = 42, test_size = 0.2)
+
+    base_model.fit(x_train, y_train)
 
     if argv[1]:
         column_names = dataframe.drop([label], 1).columns
-        print(list(column_names))
-        plot_important_features(results, column_names)
+        plot_important_features(base_model, column_names)
     
     metric_values = {
         "accuracy" : results["test_accuracy"].mean(),

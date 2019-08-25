@@ -63,24 +63,34 @@ def calculate_validation_values(cv_results, cv_split):
 
     return dict_values
 
-def plot_important_features(results, column_names):
-    index_tuple = np.where(results["test_accuracy"] == np.amax(results["test_accuracy"]))
-    best_est_index = int(index_tuple[0])
+def plot_important_features(estimator, column_names):
+    feature_importances = estimator.feature_importances_
 
-    best_estimator = results['estimator'][best_est_index]
+    column_names = list(column_names)
+    feat_imp_dict = {}
+    best_feat_names = []
+    best_feat_values = []
+    dic = {}
 
-    feature_importances = best_estimator.feature_importances_
+    for i in range(len(column_names)):
+        feat_imp_dict[column_names[i]] = feature_importances[i]
 
-    if len(feature_importances) < 50:
-        print(feature_importances)
-        series = pd.Series(feature_importances, index = column_names)
-        series.plot(kind = 'barh')
-        plt.show()
-    else:
-        column_names = list(column_names)
-        feat_imp_dict = {}
-        for i in range(len(column_names)):
-            feat_imp_dict[column_names[i]] = feat_imp_dict[i]
+    for i in range(20):
+        values = list(feat_imp_dict.values())
+        keys = list(feat_imp_dict.keys())
 
-        print()
+        max_key = keys[values.index(max(values))]
+        best_feat_names.append(max_key)
+        best_feat_values.append(feat_imp_dict[max_key])
+
+        del feat_imp_dict[max_key]
+    
+    for i in range(len(best_feat_names)):
+        dic[best_feat_names[i]] = best_feat_values[i]
+
+    print(dic) 
+    series = pd.Series(best_feat_values, index = best_feat_names)
+    series.plot(kind = 'barh')
+    plt.show()
+
         
