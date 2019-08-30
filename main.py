@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 from ML_algorithms import LogisticReg, KNN, RandomForest
-from module import *
+import module
 
 (dirname, prom) = os.path.split(os.path.dirname(__file__))
 
@@ -25,10 +25,10 @@ if graph_num == "merged":
 else:
     type_of_feat = resource_folder.split("_")[1]
     
-clf_models = [RandomForest]
+clf_models = [LogisticReg, KNN, RandomForest]
 
 for model in clf_models:
-    result = create_dict_result(graph_num, df_positive.shape[0], df_negative.shape[0], 
+    result = module.create_dict_result(graph_num, df_positive.shape[0], df_negative.shape[0], 
         df_negative.shape[1] - 1, type_of_feat, model.__name__)
 
     scores = model(finale_dataframe, "CLASS", result["cv_split"])
@@ -37,5 +37,5 @@ for model in clf_models:
     result["precision_pos"] = round(scores["pre_pos"], 4)
     result["recall_pos"] = round(scores["rec_pos"], 4)
 
-    document_result(result, json_path)
+    module.document_result(result, module.json_path)
     print("{} training finished".format(model.__name__))
