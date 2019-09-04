@@ -11,7 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn import neighbors
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
-from module import settings_path, validation_path, document_result, calculate_validation_values, plot_important_features
+from module import settings_path, validation_path, document_result, calculate_validation_values, plot_grouped_node_feat
 
 scorers = {
     "accuracy" : make_scorer(accuracy_score),
@@ -139,7 +139,7 @@ def RandomForest(dataframe, label, cv_split, *argv):
 
     if argv[1]:
         column_names = dataframe.drop([label], 1).columns
-        plot_important_features(base_model, column_names)
+        plot_grouped_node_feat(base_model, column_names)
     
     metric_values = {
         "accuracy" : results["test_accuracy"].mean(),

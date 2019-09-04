@@ -12,8 +12,18 @@ for graph in graphs_ls:
     with open(folder + pom, "r") as f:
         for line in f:
             line = line.split(" ", 1)[1]
+            # feat_group = line.split(";")[0]
+            # feat_id = line.split(" ")[2]
+            # line = feat_group + " " + feat_id
             if not line in f_rows:
                 f_rows.append(line)
+
+for i in range(len(f_rows)):
+    line = f_rows[i]
+    feat_group = line.split(";")[0]
+    feat_id = line.split(" ")[2]
+    line = feat_group + " " + feat_id
+    f_rows[i] = feat_group + " " + feat_id
 
 with open(save_file, "w") as sf:
     for row in f_rows:

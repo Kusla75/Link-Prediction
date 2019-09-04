@@ -12,6 +12,7 @@ import os
 json_path = os.path.join(dirname, "Link Prediction\\Results\\results.json")
 settings_path = json_path.replace('results', 'settings')
 validation_path = json_path.replace('results', 'validation')
+grouped_featnames_file = os.path.join(dirname, "Link Prediction\\ego-fb_all_featnames")
 
 def create_dict_result(graph_num, pos_size, neg_size, num_of_feat, type_of_feat, func_name):
 
@@ -93,4 +94,39 @@ def plot_important_features(estimator, column_names):
     series.plot(kind = 'barh')
     plt.show()
 
+def plot_grouped_node_feat(estimator, column_names):
+    feature_importances = estimator.feature_importances_
+    grp_featnames = []
+    column_names = list(column_names)
+    feat_imp_dict = {}
+    dic = {}
+    # feat_values = []
+    # feat_names = []
+
+    with open(grouped_featnames_file, "r") as featnames_file:
+        for line in featnames_file:
+            grp_featnames.append(line.strip("\n"))
+
+    for i in range(len(column_names)):
+        feat_imp_dict[column_names[i].replace("F", "")] = feature_importances[i]
+
+    for elem in grp_featnames:
+        feat_grp = elem.split(" ")[0]
+        dic[feat_grp] = 0
+    
+    for key, val in feat_imp_dict.items():
+        for elem in grp_featnames:
+            feat_grp = elem.split(" ")[0]
+            feat_id = elem.split(" ")[1]
+
+            if key == feat_id:
+                dic[feat_grp] += val
+    
+    print(dic) 
+    series = pd.Series(list(dic.values()), index = list(dic.keys()))
+    series.plot(kind = 'barh')
+    plt.show()
+
+    
+    
         
