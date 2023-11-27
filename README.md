@@ -1,11 +1,12 @@
-# Link prediction project
-Repository for scientific project in Petnica Science Center (2019)
+# Prediction of Links in Social Networks by using Node Attributes and Topological Similarity Metrics
+
+Repository for scientific project at Petnica Science Center (2019)
 
 ![](graph_414.png)
 
 ## Abstract
 
-This paper explores what data is best to train a classifier that predicts friendships in social networks. The accuracies of the classifiers that were trained by user data (node attributes) and similarity metrics (network topology)were compared. Similarity metrics were better for smaller network, because classifiers trained by similarity metrics gave an average accuracy of 75.65% and classifiers trained by node attributes accuracy of 60.87%. For larger social network, the situation is reversed, as classifiers trained by similarity metrics give an average accuracy of 81.46%, and classifiers trained by node attributes accuracy of 87.17%. From this, we can conclude that it is better to use information about users than similarity metrics to train classifiers for large social networks. Node attributes and similarity metrics were also analyzed to see which attributes and which metrics are the best in prediction. Attributes that are related to user education and job are the best for predicting friendships. As for the similarity metrics, *Resource Allocation* metric is the most important metric in predictions that use similarity metrics.
+This paper explores what data is best to train a classifier that predicts friendships in social networks. The accuracies of the classifiers that were trained by user data (node attributes) and similarity metrics (network topology) were compared. Similarity metrics were better for smaller network, because classifiers trained by similarity metrics gave an average accuracy of 75.65% and classifiers trained by node attributes accuracy of 60.87%. For larger social network, the situation is reversed, as classifiers trained by similarity metrics give an average accuracy of 81.46%, and classifiers trained by node attributes accuracy of 87.17%. From this, we can conclude that it is better to use information about users than similarity metrics to train classifiers for large social networks. Node attributes and similarity metrics were also analyzed to see which attributes and which metrics are the best in prediction. Attributes that are related to user education and job are the best for predicting friendships. As for the similarity metrics, *Resource Allocation* metric is the most important metric in predictions that use similarity metrics.
 
 ## Paper
 
@@ -13,7 +14,7 @@ Full paper is written in Serbian and was presented at Petnica conference "A step
 
 It was later published in: _Petnica Papers 2019, p. 315-322 ISBN 978-86-7861-057-8 (ISSN 0354-1428)_
 
-[Link to paper](https://esveske.github.io/pdf/2019/PS78-Zb2019_I-RACh-NK.pdf)
+[Link to paper](./Paper/Zb2019-RAC-NK.pdf)
 
 ## References
 
